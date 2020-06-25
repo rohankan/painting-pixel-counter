@@ -6,8 +6,7 @@ import os
 
 
 files = (
-    os.path.join('./images/', x)
-    for x in os.listdir('./images/')
+    x for x in os.listdir('./images/')
     if x.endswith('.png') or x.endswith('.jpg')
 )
 
@@ -33,14 +32,9 @@ def black_count(img) -> int:
 counts = {}
 
 
-files = (
-    x for x in files
-    if 'Mona' in x
-)
-
-
 for filename in files:
-    img = cv.imread(filename)
+    full_path = os.path.join('./images', filename)
+    img = cv.imread(full_path)
 
     # Grayscale-based filtering:
     # img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
@@ -52,7 +46,7 @@ for filename in files:
     percent = round(count / pixel_count * 100, 2)
 
     # cv.imshow('Output:', img)
-    cv.imwrite(f'./outputs/mona.png', img)
+    cv.imwrite(f'./outputs/{filename}.png', img)
 
     print(filename)
     print('Black-pixel count:', count)
